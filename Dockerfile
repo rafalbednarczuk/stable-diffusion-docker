@@ -134,11 +134,11 @@ RUN source /venv/bin/activate && \
 
 # Install the dependencies for the Dreambooth extension
 WORKDIR /stable-diffusion-webui
-COPY a1111/requirements_dreambooth.txt ./requirements.txt
-RUN source /venv/bin/activate && \
-    cd /stable-diffusion-webui/extensions/sd_dreambooth_extension && \
-    pip3 install -r requirements.txt && \
-    deactivate
+#COPY a1111/requirements_dreambooth.txt ./requirements.txt
+#RUN source /venv/bin/activate && \
+#    cd /stable-diffusion-webui/extensions/sd_dreambooth_extension && \
+#    pip3 install -r requirements.txt && \
+#    deactivate
 
 # Add inswapper model for the roop extension
 #RUN mkdir -p /workspace/stable-diffusion-webui/models/roop && \

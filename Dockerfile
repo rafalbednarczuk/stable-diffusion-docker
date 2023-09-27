@@ -121,14 +121,9 @@ RUN #git clone https://github.com/d8ahazard/sd_dreambooth_extension.git extensio
 
 # Install dependencies for Deforum, ControlNet, roop, and After Detailer extensions
 RUN source /venv/bin/activate && \
-#    ls && \
-    pwd && \
-    deactivate
-
-# Install dependencies for Deforum, ControlNet, roop, and After Detailer extensions
-RUN source /venv/bin/activate && \
 #    cd /stable-diffusion-webui/extensions/deforum && \
 #    pip3 install -r requirements.txt && \
+    pwd && \
     cd /stable-diffusion-webui/extensions/sd-webui-controlnet && \
     pip3 install -r requirements.txt && \
 #    cd /stable-diffusion-webui/extensions/sd-webui-roop && \

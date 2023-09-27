@@ -123,7 +123,7 @@ RUN #git clone https://github.com/d8ahazard/sd_dreambooth_extension.git extensio
 RUN source /venv/bin/activate && \
 #    cd /stable-diffusion-webui/extensions/deforum && \
 #    pip3 install -r requirements.txt && \
-    pwd && \
+    ls extensions && \
     cd /stable-diffusion-webui/extensions/sd-webui-controlnet && \
     pip3 install -r requirements.txt && \
 #    cd /stable-diffusion-webui/extensions/sd-webui-roop && \

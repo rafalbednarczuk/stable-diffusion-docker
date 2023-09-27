@@ -78,9 +78,9 @@ RUN mkdir -p /sd-models
 # These need to already have been downloaded:
 #   wget https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
 #   wget https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
-#   wget https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors
-COPY sd_xl_base_1.0.safetensors /sd-models/sd_xl_base_1.0.safetensors
-COPY sd_xl_refiner_1.0.safetensors /sd-models/sd_xl_refiner_1.0.safetensors
+#wget https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors
+#COPY sd_xl_base_1.0.safetensors /sd-models/sd_xl_base_1.0.safetensors
+#COPY sd_xl_refiner_1.0.safetensors /sd-models/sd_xl_refiner_1.0.safetensors
 COPY sdxl_vae.safetensors /sd-models/sdxl_vae.safetensors
 
 # Clone the git repo of the Stable Diffusion Web UI by Automatic1111
@@ -106,55 +106,55 @@ RUN source /venv/bin/activate && \
 
 # Cache the Stable Diffusion Models
 # SDXL models result in OOM kills with 8GB system memory, probably need 12GB+ to cache these
-RUN source /venv/bin/activate && \
-    python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_base_1.0.safetensors && \
-    python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_refiner_1.0.safetensors && \
-    deactivate
+#RUN source /venv/bin/activate && \
+#    python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_base_1.0.safetensors && \
+#    python3 cache-sd-model.py --use-cpu=all --ckpt /sd-models/sd_xl_refiner_1.0.safetensors && \
+#    deactivate
 
 # Clone the Automatic1111 Extensions
-RUN git clone https://github.com/d8ahazard/sd_dreambooth_extension.git extensions/sd_dreambooth_extension && \
-    git clone --depth=1 https://github.com/deforum-art/sd-webui-deforum.git extensions/deforum && \
+RUN #git clone https://github.com/d8ahazard/sd_dreambooth_extension.git extensions/sd_dreambooth_extension && \
+#    git clone --depth=1 https://github.com/deforum-art/sd-webui-deforum.git extensions/deforum && \
     git clone --depth=1 https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet && \
-    git clone --depth=1 https://github.com/ashleykleynhans/a1111-sd-webui-locon.git extensions/a1111-sd-webui-locon && \
-    git clone --depth=1 https://github.com/ashleykleynhans/sd-webui-roop.git extensions/sd-webui-roop && \
+#    git clone --depth=1 https://github.com/ashleykleynhans/a1111-sd-webui-locon.git extensions/a1111-sd-webui-locon && \
+#    git clone --depth=1 https://github.com/ashleykleynhans/sd-webui-roop.git extensions/sd-webui-roop && \
     git clone --depth=1 https://github.com/Bing-su/adetailer.git extensions/adetailer
 
 # Install dependencies for Deforum, ControlNet, roop, and After Detailer extensions
 RUN source /venv/bin/activate && \
-    cd /stable-diffusion-webui/extensions/deforum && \
-    pip3 install -r requirements.txt && \
+#    cd /stable-diffusion-webui/extensions/deforum && \
+#    pip3 install -r requirements.txt && \
     cd /stable-diffusion-webui/extensions/sd-webui-controlnet && \
     pip3 install -r requirements.txt && \
-    cd /stable-diffusion-webui/extensions/sd-webui-roop && \
-    pip3 install -r requirements.txt && \
+#    cd /stable-diffusion-webui/extensions/sd-webui-roop && \
+#    pip3 install -r requirements.txt && \
     cd /stable-diffusion-webui/extensions/adetailer && \
     python -m install && \
     deactivate
 
 # Set Dreambooth extension version
-WORKDIR /stable-diffusion-webui/extensions/sd_dreambooth_extension
-RUN git checkout main && \
-    git reset ${DREAMBOOTH_COMMIT} --hard
+#WORKDIR /stable-diffusion-webui/extensions/sd_dreambooth_extension
+#RUN git checkout main && \
+#    git reset ${DREAMBOOTH_COMMIT} --hard
 
 # Install the dependencies for the Dreambooth extension
-WORKDIR /stable-diffusion-webui
-COPY a1111/requirements_dreambooth.txt ./requirements.txt
-RUN source /venv/bin/activate && \
-    cd /stable-diffusion-webui/extensions/sd_dreambooth_extension && \
-    pip3 install -r requirements.txt && \
-    deactivate
+#WORKDIR /stable-diffusion-webui
+#COPY a1111/requirements_dreambooth.txt ./requirements.txt
+#RUN source /venv/bin/activate && \
+#    cd /stable-diffusion-webui/extensions/sd_dreambooth_extension && \
+#    pip3 install -r requirements.txt && \
+#    deactivate
 
 # Add inswapper model for the roop extension
-RUN mkdir -p /workspace/stable-diffusion-webui/models/roop && \
-    cd /workspace/stable-diffusion-webui/models/roop && \
-    wget https://huggingface.co/ashleykleynhans/inswapper/resolve/main/inswapper_128.onnx
+#RUN mkdir -p /workspace/stable-diffusion-webui/models/roop && \
+#    cd /workspace/stable-diffusion-webui/models/roop && \
+#    wget https://huggingface.co/ashleykleynhans/inswapper/resolve/main/inswapper_128.onnx
 
 # Fix Tensorboard
-RUN source /venv/bin/activate && \
-    pip3 uninstall -y tensorboard tb-nightly && \
-    pip3 install tensorboard tensorflow && \
-    pip3 cache purge && \
-    deactivate
+#RUN source /venv/bin/activate && \
+#    pip3 uninstall -y tensorboard tb-nightly && \
+#    pip3 install tensorboard tensorflow && \
+#    pip3 cache purge && \
+#    deactivate
 
 # Install Kohya_ss
 RUN git clone https://github.com/bmaltais/kohya_ss.git /kohya_ss
@@ -175,24 +175,24 @@ RUN git checkout ${KOHYA_VERSION} && \
     deactivate
 
 # Install ComfyUI
-RUN git clone https://github.com/comfyanonymous/ComfyUI.git /ComfyUI
-WORKDIR /ComfyUI
-RUN python3 -m venv --system-site-packages venv && \
-    source venv/bin/activate && \
-    pip3 install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
-    pip3 install --no-cache-dir xformers==0.0.21 && \
-    pip3 install -r requirements.txt && \
-    pip3 cache purge && \
-    deactivate
+#RUN git clone https://github.com/comfyanonymous/ComfyUI.git /ComfyUI
+#WORKDIR /ComfyUI
+#RUN python3 -m venv --system-site-packages venv && \
+#    source venv/bin/activate && \
+#    pip3 install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 && \
+#    pip3 install --no-cache-dir xformers==0.0.21 && \
+#    pip3 install -r requirements.txt && \
+#    pip3 cache purge && \
+#    deactivate
 
 # Install ComfyUI Custom Nodes
-RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git custom_nodes/ComfyUI-Manager
+#RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git custom_nodes/ComfyUI-Manager
 
 # Install Application Manager
-WORKDIR /
-RUN git clone https://github.com/ashleykleynhans/app-manager.git /app-manager && \
-    cd /app-manager && \
-    npm install
+#WORKDIR /
+#RUN git clone https://github.com/ashleykleynhans/app-manager.git /app-manager && \
+#    cd /app-manager && \
+#    npm install
 
 # Install Jupyter
 WORKDIR /
@@ -203,7 +203,7 @@ RUN pip3 install -U --no-cache-dir jupyterlab \
         gdown
 
 # Install rclone
-RUN curl https://rclone.org/install.sh | bash
+#RUN curl https://rclone.org/install.sh | bash
 
 # Install runpodctl
 RUN wget https://github.com/runpod/runpodctl/releases/download/v1.10.0/runpodctl-linux-amd -O runpodctl && \
@@ -211,16 +211,16 @@ RUN wget https://github.com/runpod/runpodctl/releases/download/v1.10.0/runpodctl
     mv runpodctl /usr/local/bin
 
 # Install croc
-RUN curl https://getcroc.schollz.com | bash
+#RUN curl https://getcroc.schollz.com | bash
 
 # Install speedtest CLI
-RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash && \
-    apt install speedtest
+#RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash && \
+#    apt install speedtest
 
 # Install CivitAI Model Downloader
-RUN git clone --depth=1 https://github.com/ashleykleynhans/civitai-downloader.git && \
-    mv civitai-downloader/download.sh /usr/local/bin/download-model && \
-    chmod +x /usr/local/bin/download-model
+#RUN git clone --depth=1 https://github.com/ashleykleynhans/civitai-downloader.git && \
+#    mv civitai-downloader/download.sh /usr/local/bin/download-model && \
+#    chmod +x /usr/local/bin/download-model
 
 # Copy Stable Diffusion Web UI config files
 COPY a1111/relauncher.py a1111/webui-user.sh a1111/config.json a1111/ui-config.json /stable-diffusion-webui/
@@ -229,7 +229,7 @@ COPY a1111/relauncher.py a1111/webui-user.sh a1111/config.json a1111/ui-config.j
 ADD https://raw.githubusercontent.com/Douleb/SDXL-750-Styles-GPT4-/main/styles.csv /stable-diffusion-webui/styles.csv
 
 # Copy ComfyUI Extra Model Paths (to share models with A1111)
-COPY comfyui/extra_model_paths.yaml /ComfyUI/
+#COPY comfyui/extra_model_paths.yaml /ComfyUI/
 
 # NGINX Proxy
 COPY nginx/nginx.conf /etc/nginx/nginx.conf

@@ -206,12 +206,15 @@ RUN wget https://github.com/runpod/runpodctl/releases/download/v1.10.0/runpodctl
     chmod a+x runpodctl && \
     mv runpodctl /usr/local/bin
 
+# install aria2
+RUN apt install aria2
+
 # Install croc
 #RUN curl https://getcroc.schollz.com | bash
 
 # Install speedtest CLI
 #RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash && \
-    apt install speedtest
+#    apt install speedtest
 
 # Install CivitAI Model Downloader
 #RUN git clone --depth=1 https://github.com/ashleykleynhans/civitai-downloader.git && \

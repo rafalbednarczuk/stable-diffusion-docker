@@ -129,7 +129,6 @@ RUN source /venv/bin/activate && \
 RUN source /venv/bin/activate && \
 #    cd /stable-diffusion-webui/extensions/deforum && \
 #    pip3 install -r requirements.txt && \
-    ls && \
     cd /stable-diffusion-webui/extensions/sd-webui-controlnet && \
     pip3 install -r requirements.txt && \
 #    cd /stable-diffusion-webui/extensions/sd-webui-roop && \

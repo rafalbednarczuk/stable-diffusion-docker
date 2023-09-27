@@ -150,7 +150,7 @@ RUN source /venv/bin/activate && \
 #    pip3 uninstall -y tensorboard tb-nightly && \
 #    pip3 install tensorboard tensorflow && \
 #    pip3 cache purge && \
-    deactivate
+#    deactivate
 
 # Install Kohya_ss
 RUN git clone https://github.com/bmaltais/kohya_ss.git /kohya_ss

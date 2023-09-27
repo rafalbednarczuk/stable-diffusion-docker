@@ -206,8 +206,6 @@ RUN wget https://github.com/runpod/runpodctl/releases/download/v1.10.0/runpodctl
     chmod a+x runpodctl && \
     mv runpodctl /usr/local/bin
 
-# install aria2
-RUN apt install aria2
 
 # Install croc
 #RUN curl https://getcroc.schollz.com | bash

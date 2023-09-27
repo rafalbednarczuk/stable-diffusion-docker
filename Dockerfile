@@ -114,17 +114,15 @@ RUN source /venv/bin/activate && \
 # Clone the Automatic1111 Extensions
 RUN #git clone https://github.com/d8ahazard/sd_dreambooth_extension.git extensions/sd_dreambooth_extension && \
 #    git clone --depth=1 https://github.com/deforum-art/sd-webui-deforum.git extensions/deforum && \
-    git clone --depth=1 https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet && \
+    git clone --depth=1 https://github.com/Mikubill/sd-webui-controlnet.git /stable-diffusion-webui/extensions/sd-webui-controlnet && \
 #    git clone --depth=1 https://github.com/ashleykleynhans/a1111-sd-webui-locon.git extensions/a1111-sd-webui-locon && \
 #    git clone --depth=1 https://github.com/ashleykleynhans/sd-webui-roop.git extensions/sd-webui-roop && \
-    git clone --depth=1 https://github.com/Bing-su/adetailer.git extensions/adetailer
+    git clone --depth=1 https://github.com/Bing-su/adetailer.git /stable-diffusion-webui/extensions/adetailer
 
 # Install dependencies for Deforum, ControlNet, roop, and After Detailer extensions
 RUN source /venv/bin/activate && \
 #    cd /stable-diffusion-webui/extensions/deforum && \
 #    pip3 install -r requirements.txt && \
-    ls /stable-diffusion-webui/extensions && \
-    ls /stable-diffusion-webui/extensions/sd-webui-controlnet && \
     cd /stable-diffusion-webui/extensions/sd-webui-controlnet && \
     pip3 install -r requirements.txt && \
 #    cd /stable-diffusion-webui/extensions/sd-webui-roop && \
